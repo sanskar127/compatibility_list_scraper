@@ -16,14 +16,7 @@ async function scrapePage() {
             const title = $(element).attr('data-title-name');
             const status = $(element).attr('data-title-status');
             const url = "https://xemu.app" + $(element).find('a').attr('href');
-            const thumbnail = $(element).find('.title-card-image-container img').attr('src');
-
-            // Check if thumbnail is correctly fetched
-            if (thumbnail) {
-                console.log(`Thumbnail URL: ${thumbnail}`);
-            } else {
-                console.log(`Thumbnail not found for title: ${title}`);
-            }
+            const thumbnail = $(element).find('img').attr('data-src');
 
             data.push({ title, url, status, thumbnail });
         });

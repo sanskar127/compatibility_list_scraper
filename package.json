@@ -6,7 +6,8 @@
     "ppsspp": "node ppsspp.js",
     "rpcs3": "node rpcs3.js",
     "dolphin": "node dolphin.js",
-    "vita3k": "node vita3k.js"
+    "vita3k": "node vita3k.js",
+    "xemu": "node xemu.js"
   },
   "keywords": [],
   "author": "Sanskar Pandey",
