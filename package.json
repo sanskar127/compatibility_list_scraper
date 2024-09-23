@@ -1,0 +1,21 @@
+{
+  "name": "compatibility_list_scraper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "ppsspp": "node ppsspp.js",
+    "rpcs3": "node rpcs3.js",
+    "dolphin": "node dolphin.js",
+    "vita3k": "node vita3k.js"
+  },
+  "keywords": [],
+  "author": "Sanskar Pandey",
+  "license": "ISC",
+  "description": "Web Scraper for gathering Emulation Compatibility List",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cheerio": "^1.0.0",
+    "compatibility_list_scraper": "file:",
+    "scraper": "file:"
+  }
+}
