@@ -1,48 +1,27 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const fs = require('fs');
 
-const BASE_URL = 'https://vita3k.org/compatibility.html';
+const url = 'https://vita3k.org/compatibility.html'; // Replace with the actual URL where your table is located.
 
-async function scrapePage() {
+async function scrapeTable() {
     try {
-        const response = await axios.get(BASE_URL);
-        const html = response.data;
-        const $ = cheerio.load(html);
+        const { data } = await axios.get(url);
+        const $ = cheerio.load(data);
 
-        const data = [];
+        const results = [];
 
-        // Adjust selectors based on the actual structure of the game list
-        $('table tbody tr').each((index, element) => {
-            // serial title compatibility
-            const serial = $(element).find('td:nth-child(1) small.ng-binding').text().trim();
-            const title = $(element).find('td:nth-child(2) a small.ng-binding').text().trim();
-            const compatibility = $(element).find('td:nth-child(3) font small.ng-binding').text().trim();
+        $('table .table-hover tbody tr').each((index, element) => {
+            const titleId = $(element).find('td:nth-child(1) small').text().trim();
+            const entryName = $(element).find('td:nth-child(2) a small').text().trim();
+            const status = $(element).find('td:nth-child(3) small').text().trim();
 
-            data.push({ serial, title, compatibility });
+            results.push({ titleId, entryName, status });
         });
 
-        return data;
+        console.log(results);
     } catch (error) {
-        console.error('Error fetching: ', error);
-        return [];
+        console.error(`Error fetching the URL: ${error.message}`);
     }
 }
 
-async function scrapeAllPages() {
-    try {
-        console.log('Starting to scrape...');
-
-        const pageData = await scrapePage();
-
-        console.log('Scraping complete!');
-
-        // Save the data to a JSON file
-        fs.writeFileSync('vita3k.json', JSON.stringify(pageData, null, 2));
-        console.log('Data exported to vita3k.json');
-    } catch (error) {
-        console.error('An error occurred during scraping or file writing:', error);
-    }
-}
-
-scrapeAllPages();
+scrapeTable();
